@@ -1,0 +1,90 @@
+body {
+  background-color: rgb(220, 219, 219);
+  background: radial-gradient(rgb(255, 255, 255), rgb(192, 190, 190));
+}
+
+.displayTitle {
+  margin-top: 20px;
+  text-align: center;
+  background-color: aqua;
+  color: gray;
+  padding: 20px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.displayTitle p {
+  position: relative;
+  top: 10px;
+}
+
+#map {
+  width: 100%;
+  height: 500px;
+  margin-top: 10px;
+}
+
+/* 目的地検索のデザインを書き換える */
+.destinationInput {
+  position: relative;
+  max-width: 300px;
+  margin-bottom: 20px;
+  top: 12px;
+  left: 20px;
+}
+#to {
+  height: 40px;
+  width: 250px;
+  padding: 0 10px;
+  position: absolute;
+  border-radius: 20px;
+  outline: none;
+  background: #eee;
+  border: 2px solid;
+  border-color: black;
+}
+#btn {
+  height: 40px;
+  position: absolute;
+  left: 210px;
+  background: none;
+  color: #666;
+  border: none;
+  font-size: 20px;
+}
+#btn:hover {
+  color: #7fbfff;
+}
+
+#inputCheck {
+  background-color: rgb(194, 248, 218);
+  border: 2px solid green;
+  font-weight: bold;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.overview {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.navigation {
+  position: relative;
+  top: 7px;
+  left: 30px;
+}
+
+#waypoints {
+  width: 80%;
+}
+
+.final {
+  text-align: center;
+}
+
+.waypoint {
+  position: relative;
+  top: 12px;
+  left: 70px;
+}
