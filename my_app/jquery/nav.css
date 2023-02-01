@@ -53,6 +53,7 @@
   opacity: 1;
   visibility: visible;
   background-color: rgba(255, 255, 255, 0.8);
+  z-index: 2;
 }
 
 .navigation {
@@ -64,7 +65,7 @@
 
 .nav_menu_ul {
   list-style: none;
-  margin-top: 215px;
+  margin-top: 30px;
 }
 
 /* メニューバーのリストスタイル */

@@ -1,0 +1,82 @@
+body {
+  width: 100%;
+  height: 100vh;
+}
+
+/* 見出しスタイル */
+.complete_title h1 {
+  text-align: center;
+  border: 4px solid;
+  width: 80%;
+  margin: 0 auto;
+}
+
+/* 画面の現在位置の確認 */
+.arrow {
+  margin-top: 50px;
+  text-align: center;
+}
+.arrow span {
+  border: 2px solid;
+  font-weight: bold;
+  padding: 10px 25px;
+  margin-right: 30px;
+  border-radius: 0 30px 30px 0;
+}
+.arrow #complete {
+  background-color: rgb(255, 225, 186);
+}
+
+/* チェックアイコンのスタイル */
+.complete_icon {
+  text-align: center;
+}
+.complete_icon i{
+  font-size: 7.0rem;
+  background-color: rgb(178, 248, 73);
+  border-radius: 50%;
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+
+.complete_text {
+  margin-top: 50px;
+  background-color: rgb(253, 226, 186);
+  width: 60%;
+  margin: 0 auto;
+  padding: 5px 10px 15px 10px;
+  border-radius: 10px;
+}
+.complete_text #text_head {
+  font-weight: bold;
+  font-size: large;
+  text-align: center;
+  color: rgb(48, 48, 48);
+}
+.complete_text #text_body {
+  font-family: sans-serif;
+  padding-left: 20px;
+}
+
+/* ホームへ戻るリンクのデザイン */
+.back_home {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.link_abbsolute, .link_abbsolute span {
+  display: inline-block;
+  color: #2082f2;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.link_abbsolute span{
+  transition: .5s;
+  text-decoration: underline;
+}
+
+.link_abbsolute:hover span {
+  transform: rotateX(360deg);
+  text-decoration: none;
+}
