@@ -199,17 +199,18 @@ function touristLinkClick() {
     service.nearbySearch(request, function (results, status) {
       if (status == 'OK') {
         for (let i = 0; i < results.length; i++) {
+          createMarker(results[i].geometry.location);
           console.log(results[i]);
         }
-      }
+      } 
     });
-    // function createMarker(markerTourist) {
-    //   let marker = new google.maps.Marker({
-    //     position: markerTourist.geometry.location,
-    //     map: map,
-    //     animation: google.maps.Animation.DROP
-    //   });
-    // }
+    function createMarker(markerTourist) {
+      let marker = new google.maps.Marker({
+        position: markerTourist,
+        map: map,
+        animation: google.maps.Animation.DROP
+      });
+    }
     }
   search();
   });
