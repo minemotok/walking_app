@@ -1,16 +1,15 @@
 <?php
+session_start();
 require_once 'input_check.php';
-if (!empty($_POST)) {
+if (isset($_POST['submit'])) {
   if (isset($_POST['job_category']) && $_POST['job_category'] === '法人') {
     $error_check_form = new Errorcheckform();
     // 法人を入力していたら会社名の空文字チェック
     $error_check_form->word_error_check('company_name', '会社名');
     if (empty($error_check_form->error_message)) {
-      $_POST['company_name'] = $error_check_form->escape['company_name'];
+      $_SESSION['company_name'] = $error_check_form->escape['company_name'];
     }
-    foreach ($error_check_form->error_message as $key) {
-      echo '<span>' . $key . '</span>';
-    };
+    $company_input_error = $error_check_form->error_message;
   }
   if (isset($_POST['company_name'])) {
     $_POST['company_name'] = htmlspecialchars($_POST['company_name'], ENT_QUOTES, 'UTF-8');
@@ -29,18 +28,24 @@ if (!empty($_POST)) {
   $check_expansion->word_error_check('mailaddress', 'メールアドレス');
   // 郵便番号の正規化チェック
   $check_expansion->number_error_check('post', '郵便番号');
+  // お問い合わせ本文チェック
+  $error_check_form->word_error_check('contents', 'お問い合わせ文');
 
   // 郵便番号・都道府県・住所の部分入力不可チェック
   $error_check_form->all_input_check('post', 'prefecture', 'address');
 
   if (empty($error_check_form->error_message) && empty($birth_date_check->error_message) && empty($check_expansion->error_message)) {
-    $_POST['username'] = $error_check_form->escape['username'];
-    $_POST['birth_day'] = $birth_date_check->escape['birth_day'];
-    $_POST['mailaddress'] = $check_expansion->escape['mailaddress'];
-    $_POST['post'] = $check_expansion->escape['post'];
-    $_POST['prefecture'] = htmlspecialchars($_POST['prefecture'], ENT_QUOTES, 'UTF-8');
-    $_POST['address'] = htmlspecialchars($_POST['address'], ENT_QUOTES, 'UTF-8');
-    $_POST['contents'] = htmlspecialchars($_POST['contents'], ENT_QUOTES, 'UTF-8');
+    $_SESSION['username'] = $error_check_form->escape['username'];
+    $_SESSION['birth_day'] = $birth_date_check->escape['birth_day'];
+    $_SESSION['mailaddress'] = $check_expansion->escape['mailaddress'];
+    $_SESSION['post'] = $check_expansion->escape['post'];
+    $_SESSION['prefecture'] = htmlspecialchars($_POST['prefecture'], ENT_QUOTES, 'UTF-8');
+    $_SESSION['address'] = htmlspecialchars($_POST['address'], ENT_QUOTES, 'UTF-8');
+    $_SESSION['contents'] = $error_check_form->escape['contents'];
+  }
+  if (!empty($_POST['job_category']) && !empty($_POST['gender'])) {
+    $_SESSION['job_category'] = $_POST['job_category'];
+    $_SESSION['gender'] = $_POST['gender'];
   }
 }
 ?>
@@ -64,6 +69,11 @@ if (!empty($_POST)) {
         <i id="mark" class="fa fa-exclamation-triangle" aria-hidden="true"></i>
         <span>もう一度入力してください</span>
       </div>
+      <?php if (!empty($company_input_error)) {
+        foreach ($company_input_error as $key) {
+          echo '<span>' . $key . '</span>' . '<br>';
+        }
+      } ?>
       <?php
       foreach ($error_check_form->error_message as $key) {
         echo '<span>' . $key . '</span>' . '<br>';
@@ -76,24 +86,26 @@ if (!empty($_POST)) {
       ?>
       <?php
       foreach ($check_expansion->error_message as $key) {
-        echo '<span>' . $key . '</span>';
+        echo '<span>' . $key . '</span>' . '<br>';
       }
       ?>
     </div>
     <?php } ?>
+    <?php
+  if (isset($_POST['submit']) !== false && empty($error_check_form->error_message) && empty($company_input_error) && empty($birth_date_check->error_message) && empty($check_expansion->error_message)) {
+    $host = $_SERVER['HTTP_HOST'];
+    $dir = dirname($_SERVER['PHP_SELF'], 1);
+    header("Location: //$host$dir/confirm/confirmation.php");
+  }
+  ?>
+
     <!-- header部分 -->
     <div id="contact_form">
       <h1>お問い合わせフォーム</h1>
       <p>必要事項をご記入の上、送信してください</p>
     </div>
     <!-- main部分 -->
-    <form action=<?php
-                if (isset($_POST['submit']) && empty($error_check_form->error_message) && empty($birth_date_check->error_message) && empty($check_expansion->error_message)) {
-                  echo './confirm/confirmation.php';
-                } else {
-                  echo $_SERVER['PHP_SELF'];
-                }
-                ?> method="POST">
+    <form action="" method="POST">
 
       <div class="main">
         <table border="0">

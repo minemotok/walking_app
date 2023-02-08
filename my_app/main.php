@@ -110,7 +110,7 @@ if (!empty($_POST)) {
     </div>
     <script src="./mainMap/googleMap.js"></script>
     <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=<?php echo $_ENV['API_KEY'] ?>&libraries=places&callback=initMap">
+      src="https://maps.googleapis.com/maps/api/js?key=<?php echo $_ENV['API_KEY'] ?>&callback=initMap&libraries=places">
     </script>
     <script src="./jquery/navmenu.js"></script>
   </body>

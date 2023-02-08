@@ -1,4 +1,5 @@
 <?php
+session_start();
 $host = $_SERVER['HTTP_HOST'];
 if (!empty($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], $host) !== false) {
   $refere = $_SERVER['HTTP_REFERER'];
@@ -6,14 +7,6 @@ if (!empty($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], $host) 
   $dir = dirname($_SERVER['PHP_SELF'], 2);
   header("Location: //$host$dir/inquiry.php");
 }
-$company_name = $_POST['company_name'];
-$username = $_POST['username'];
-$birth_day = $_POST['birth_day'];
-$mailaddress = $_POST['mailaddress'];
-$post = $_POST['post'];
-$prefecture = $_POST['prefecture'];
-$address = $_POST['address'];
-$contents = $_POST['contents'];
 
 ?>
 <!DOCTYPE html>
@@ -64,56 +57,56 @@ $contents = $_POST['contents'];
             <table>
               <tr class="separate_blue">
                 <td class="title"><span>法人/個人 <span class="gray">【任意】</span></span></td>
-                <td class="contents"><span><?php if (isset($job_category) === false) {
+                <td class="contents"><span><?php if (isset($_SESSION['job_category']) === false) {
                                             echo "";
                                           } else {
-                                            echo $job_category;
+                                            echo $_SESSION['job_category'];
                                           } ?></span></td>
               </tr>
               <tr class="separate_sky">
                 <td class="title"><span>会社名 <span class="skin">【法人の場合のみ】</span></span></td>
                 <td class="contents"><span>
-                    <?php if (isset($company_name) === false) {
+                    <?php if (isset($_SESSION['company_name']) === false) {
                     echo "";
                   } else {
-                    echo $company_name;
+                    echo $_SESSION['company_name'];
                   } ?> </span></td>
               </tr>
               <tr class="separate_blue">
                 <td class="title"><span>氏名 <span class="red">【必須】</span></span></td>
-                <td class="contents"><span><?= $username ?></span></td>
+                <td class="contents"><span><?= $_SESSION['username']; ?></span></td>
               </tr>
               <tr class="separate_sky">
                 <td class="title"><span>性別 <span class="gray">【任意】</span></span></td>
-                <td class="contents"><span><?php if (isset($gender) === false) {
+                <td class="contents"><span><?php if (isset($_SESSION['gender']) === false) {
                                             echo "";
                                           } else {
-                                            echo $gender;
+                                            echo $_SESSION['gender'];
                                           } ?></span></td>
               </tr>
               <tr class="separate_blue">
                 <td class="title"><span>生年月日 <span class="red">【必須】</span></span></td>
-                <td class="contents"><span><?= $birth_day ?></span></td>
+                <td class="contents"><span><?= $_SESSION['birth_day']; ?></span></td>
               </tr>
               <tr class="separate_sky">
                 <td class="title"><span>メールアドレス <span class="red">【必須】</span></span></td>
-                <td class="contents"><span><?= $mailaddress ?></span></td>
+                <td class="contents"><span><?= $_SESSION['mailaddress']; ?></span></td>
               </tr>
               <tr class="separate_blue">
                 <td class="title"><span>郵便番号 <span class="red">【必須】</span></span></td>
-                <td class="contents"><span><?= $post ?></span></td>
+                <td class="contents"><span><?= $_SESSION['post']; ?></span></td>
               </tr>
               <tr class="separate_sky">
                 <td class="title"><span>都道府県 <span class="red">【必須】</span></span></td>
-                <td class="contents"><span><?= $prefecture ?></span></td>
+                <td class="contents"><span><?= $_SESSION['prefecture']; ?></span></td>
               </tr>
               <tr class="separate_blue">
                 <td class="title"><span>住所 <span class="red">【必須】</span></span></td>
-                <td class="contents"><span><?= $address ?></span></td>
+                <td class="contents"><span><?= $_SESSION['address']; ?></span></td>
               </tr>
               <tr class="separate_sky">
                 <td id="content_area"><span>お問い合わせ内容 <span class="red">【必須】</span></span></td>
-                <td class="contents"><span><?= $contents ?></span></td>
+                <td class="contents"><span><?= $_SESSION['contents']; ?></span></td>
               </tr>
             </table>
           </div>
@@ -140,28 +133,28 @@ $contents = $_POST['contents'];
   const submit = document.getElementById('submitButton');
   submit.addEventListener('click', function() {
     let inquiry_data = {
-      job_category: '<?php if (isset($_POST['job_category']) === false) {
+      job_category: '<?php if (isset($_SESSION['job_category']) === false) {
                         echo "";
                       } else {
-                        echo $_POST['job_category'];
+                        echo $_SESSION['job_category'];
                       } ?>',
-      company_name: '<?php if (isset($company_name) === false) {
+      company_name: '<?php if (isset($_SESSION['company_name']) === false) {
                         echo "";
                       } else {
-                        echo $company_name;
+                        echo $_SESSION['company_name'];
                       } ?>',
-      username: '<?= $username ?>',
-      gender: '<?php if (isset($_POST['gender']) === false) {
+      username: '<?= $_SESSION['username']; ?>',
+      gender: '<?php if (isset($_SESSION['gender']) === false) {
                   echo "";
                 } else {
-                  echo $_POST['gender'];
+                  echo $_SESSION['gender'];
                 } ?>',
-      birth_day: '<?= $birth_day ?>',
-      mailaddress: '<?= $mailaddress ?>',
-      post: '<?= $post ?>',
-      prefecture: '<?= $prefecture ?>',
-      address: '<?= $address ?>',
-      contents: '<?= $contents ?>'
+      birth_day: '<?= $_SESSION['birth_day']; ?>',
+      mailaddress: '<?= $_SESSION['mailaddress']; ?>',
+      post: '<?= $_SESSION['post']; ?>',
+      prefecture: '<?= $_SESSION['prefecture']; ?>',
+      address: '<?= $_SESSION['address']; ?>',
+      contents: '<?= $_SESSION['contents']; ?>'
     }
 
     let json = JSON.stringify(inquiry_data);
