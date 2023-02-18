@@ -89,3 +89,153 @@ body {
   top: 12px;
   left: 70px;
 }
+
+#map {
+  margin-top: 50px;
+  margin-bottom: 40px;
+}
+
+/* おすすめの観光地を割り出す機能のスタイル */
+#sightseeing {
+  width: 60%;
+  height: 30px;
+}
+
+/* イメージタグを中央に配置 */
+.place-img {
+  text-align: center;
+}
+
+.content-wrap {
+  margin-top: 18px;
+}
+
+/* 観光地の情報を表示する枠組み */
+.searchBox {
+  position: relative;
+  padding: 1rem;
+  outline: 2px solid #A5D2E1;
+  outline-offset: 2px;
+  background-image: linear-gradient(-45deg, transparent 10px, #A5D2E1 10px);
+  color: #212121;
+  overflow: hidden;
+  margin-top: 20px;
+}
+.searchBox::before {
+  position: absolute;
+  content: '';
+  right: 0px;
+  bottom: 0px;
+  border-width: 0px 0px 15px 15px;
+  border-style: solid;
+  border-color: transparent transparent transparent #A5D2E1;
+  box-shadow: 0 0 5px #000;
+}
+.searchBox p {
+  color: #333;
+  line-height: 1.5;
+}
+#placeSearchWrap {
+  background: linear-gradient(#572ae0 0%, #3b92cc 50%, #41efe3 100%);
+  margin-top: 15px;
+}
+
+/* 観光地情報の見出し(h1)のデザイン */
+.header {
+  margin-top: 10px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  animation: bg 2.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  background: linear-gradient(to right, #e02a8e 0%, #b43bcc 50%, #42d3ed 100%);
+}
+.headWrap {
+  color: #f9f9f9;
+  font-size: 40px;
+  font-weight: bold;
+  transform-origin: left center;
+  text-align: center;
+  margin-top: 4px;
+  letter-spacing: 15px;
+}
+.headWrap .inn{
+  color: #fff;
+  display: inline-block;
+  font-size: 36px;
+  font-weight: bold;
+  padding: 5px 15px;
+  position: relative;
+  z-index: 1;
+}
+@keyframes bg {
+  0% {
+    opacity: 0;
+    transform: scaleX(0) translateX(-5%);
+  }
+
+  30% {
+    transform: scaleX(1) translateX(0);
+  }
+
+  100% {
+    transform: scaleX(1) translateX(0);
+  }
+
+  30%,
+  100% {
+    opacity: 1;
+  }
+}
+/* 観光地情報の見出し(h3)のスタイル */
+.touristHeadlineWrap {
+  background-color: #000;
+}
+.createTouristHeadline {
+  color: rgb(255, 254, 254);
+  font-weight: bold;
+  font-size: 20pt;
+  transform: skewX(160deg);
+  font-weight: bold;
+  letter-spacing: 5px;
+  text-shadow: 3px 3px 2px #999999,
+  -3px 3px 2px #999999,
+  3px -3px 2px #999999,
+  -3px -3px 2px #999999,
+  3px 0px 2px #999999,
+  0px 3px 2px #999999,
+  -3px 0px 2px #999999,
+  0px -3px 2px #999999;
+  letter-spacing: 25px;
+  text-align: center;
+}
+.palceNumber {
+  background-color: #000;
+  color: rgb(238, 238, 238);
+}
+
+/* おすすめの場所表示のテーブルスタイル */
+.abstract-table {
+  border: 3px double #212121;
+}
+th, td{
+  border: 1px solid #212121;
+  text-align: center;
+  padding: 15px 35px;
+  letter-spacing: 2px;
+}
+th {
+  background-color: #949393;
+  font-size: 16px;
+  font-weight: bold;
+}
+td {
+  background-color: rgb(243, 245, 245);
+  font-size: 14px;
+}
+#website {
+  font-size: 13px;
+  font-weight: 900;
+  padding: 0;
+}

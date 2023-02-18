@@ -59,7 +59,7 @@ if (!empty($_POST)) {
           </span>
           <nav class="nav">
             <ul class="nav_menu_ul">
-              <li class="nav_menu_li"><a href="javascript:touristLinkClick();">周辺の観光地を検索</a></li>
+              <li class="nav_menu_li"><a href="#" id="touristText">周辺の観光地を検索</a></li>
               <li class="nav_menu_li"><a href="#">路面電車利用検索</a></li>
               <li class="nav_menu_li"><a href="#">長崎の最新情報</a></li>
               <li class="nav_menu_li"><a href="./loginFunction/logout/logout.php">ログアウト</a></li>
@@ -94,6 +94,13 @@ if (!empty($_POST)) {
         </div>
       </div>
 
+      <!-- place_idから取得した位置情報を表示するためのdivタグ -->
+      <div class="row" id="placeSearchWrap">
+        <div class="col" id="placeSearch">
+
+        </div>
+      </div>
+
       <div class="row final">
         <div class="col">
           <a href="#">一日に歩いた距離</a>
@@ -108,10 +115,10 @@ if (!empty($_POST)) {
         </div>
       </div>
     </div>
-    <script src="./mainMap/googleMap.js"></script>
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=<?php echo $_ENV['API_KEY'] ?>&callback=initMap&libraries=places">
     </script>
+    <script src="./mainMap/googleMap.js"></script>
     <script src="./jquery/navmenu.js"></script>
   </body>
 
