@@ -1,0 +1,62 @@
+body {
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(249, 241, 230);
+}
+
+.headline {
+  text-align: center;
+  background-color: rgb(32, 31, 31);
+}
+.headline h1 {
+  color: rgb(225, 226, 226);
+}
+
+.reviews {
+  resize: none;
+}
+
+table {
+  border: 4px double rgb(59, 59, 59);
+  border-radius: 10px;
+}
+th {
+  text-align: center;
+  letter-spacing: 2px;
+  border: 1px solid rgb(59, 59, 59);
+  width: 150px;
+  padding: 3px;
+}
+.write {
+  text-align: center;
+  border: 1px solid rgb(59, 59, 59);
+}
+textarea {
+  height: 40px;
+}
+#details {
+  word-wrap: break-word;
+}
+
+/* 中身の全体のスタイル */
+.contents {
+  margin-top: 25px;
+}
+
+/* ユーザーのコメント表示スタイル */
+.comments {
+  background-color: rgb(181, 245, 250);
+}
+.review {
+  font-weight: 800;
+  font-size: large;
+}
+
+/* サンプル */
+ul {
+  display: flex;
+  justify-content: end;
+}
+nav {
+  margin: 0 0 0 auto;
+}
