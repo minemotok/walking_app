@@ -199,16 +199,29 @@ rootBtn.addEventListener('click', () => {
         currentPos = new google.maps.LatLng(currentPosition);
         const to = document.getElementById('to').value;
         
-        const directionsService = new google.maps.DirectionsService();
-        const directionsDisplay = new google.maps.DirectionsRenderer();
-        
         // 経由地点の情報を格納
         let waypointsValue = {
           'huisTenBosch': new google.maps.LatLng(33.08565665456302, 129.78856205462736),
           'mountInasa': new google.maps.LatLng(32.753145385125215, 129.84965047869096),
-          'gunkanjima' : new google.maps.LatLng(32.62784026536563, 129.7384964455473)
+          'bakkadai park' : new google.maps.LatLng(32.815850364879104, 130.29616212578327),
+          'glover garden': new google.maps.LatLng(32.73435790743401, 129.86918520844137),
+          'nagasaki new chinatown': new google.maps.LatLng(32.74190091338694, 129.8755511816009),
+          'peace park': new google.maps.LatLng(32.77649390406241, 129.86364262708256),
+          'nagasaki bio park': new google.maps.LatLng(32.98829886413879, 129.78328556811636),
+          'umi kirara': new google.maps.LatLng(33.16194022699622, 129.67898913361202),
+          'mori kirara': new google.maps.LatLng(33.15160304689066, 129.68947144365436),
+          'yuinohama marine park': new google.maps.LatLng(32.757119642660726, 129.99414934007896),
+          'sazanka kogen picnic park': new google.maps.LatLng(32.96898342887811, 130.1427969269689),
+          'omura park': new google.maps.LatLng(32.89928780428673, 129.95902453927758),
+          'nagasaki prefectual museum of art': new google.maps.LatLng(32.74212706125895, 129.8702533239288),
+          'sasebo gobangai': new google.maps.LatLng(33.16548400193411, 129.7230311988099),
+          'nagasaki mizubenomori park': new google.maps.LatLng(32.741409163004136, 129.8691189104368),
+          'oura cathedral': new google.maps.LatLng(32.73426697746743, 129.87013884288362),
+          'arcus sasebo': new google.maps.LatLng(33.166419281513456, 129.72413277790943),
+          'mirai on library': new google.maps.LatLng(32.908878177648155, 129.96166520488555),
+          'unzen jigoku': new google.maps.LatLng(32.74069192026073, 130.26202698464104),
+          'nagasaki dutch village': new google.maps.LatLng(32.99477199295039, 129.75840503286364)
         }
-        
         let request = {
           origin: currentPos,
           destination: to,
@@ -220,11 +233,40 @@ rootBtn.addEventListener('click', () => {
           avoidHighways: true,
           avoidTolls: true,
           unitSystem: google.maps.UnitSystem.METRIC
-          }
+        }
+        let directionsService = new google.maps.DirectionsService();
         directionsService.route(request, function (results, status) {
           if (status == 'OK') {
-            directionsDisplay.setMap(map);
-            directionsDisplay.setDirections(results); 
+            new google.maps.DirectionsRenderer({
+              map: map,
+              directions: results,
+              suppressMarkers: true
+            });
+            const waypointImage = new google.maps.Marker({
+              position: waypointsValue[waypoint],
+              map: map,
+              icon: {
+                url: '/walking_app/my_app/mainMap/597123.jpg',
+                scaledSize: new google.maps.Size(35, 40)
+              }
+            });
+            let placeName = results.geocoded_waypoints[2].place_id;
+            let geocoder = new google.maps.Geocoder();
+            geocoder.geocode({
+              'placeId': placeName,
+              'region': 'ja'
+            }, function (response, status) {
+              if (status == 'OK') {
+              const goalImage = new google.maps.Marker({
+              position: response[0].geometry.location,
+              map: map,
+              icon: {
+                url: '/walking_app/my_app/mainMap/597160.jpg',
+                scaledSize: new google.maps.Size(35, 40)
+              }
+            });
+              }
+            });
           }
         });
       }
@@ -251,7 +293,7 @@ rootBtn.addEventListener('click', () => {
         directionsService.route(request, function (results, status) {
           if (status == 'OK') {
             directionsDisplay.setMap(map);
-            directionsDisplay.setDirections(results); 
+            directionsDisplay.setDirections(results);
           }
         });
       }
@@ -464,10 +506,9 @@ document.getElementById('touristText').addEventListener('click', function (e) {
            });
           service.getDetails({
             placeId: `${results[i].place_id}`,
-            fields: ['website', 'formatted_phone_number', 'opening_hours']
+            fields: ['website', 'formatted_phone_number']
           }, function(place, status) {
             if(status === 'OK') {
-              console.log(place);
             // 現在地からのおすすめの観光地までの距離を取得
               let directionsService = new google.maps.DirectionsService();
               let touristLatLng = new google.maps.LatLng(results[i].geometry.location.lat(), results[i].geometry.location.lng());
@@ -479,7 +520,6 @@ document.getElementById('touristText').addEventListener('click', function (e) {
               }
               directionsService.route(route, function(response, status) {
                 if(status === 'OK') {
-                  console.log(response);
                   createInfo(results[i], place, count, response);
                 }
               })

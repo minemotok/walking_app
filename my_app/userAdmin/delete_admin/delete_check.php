@@ -3,6 +3,7 @@ session_start();
 
 $message_update = "ユーザーID・" . $_SESSION['user_id'] . "のユーザー情報を更新しました";
 $message_update_error = "ユーザーID・" . $_SESSION['user_id'] . "のユーザー情報を正常に更新できませんでした" . '<br>' . "もう一度お確かめください";
+
 ?>
 
 <!DOCTYPE html>
@@ -12,15 +13,15 @@ $message_update_error = "ユーザーID・" . $_SESSION['user_id'] . "のユー�
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ユーザー更新チェック画面</title>
+    <title>ユーザー削除チェック画面</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="update_check.css">
+    <link rel="stylesheet" href="../delete_admin/delete_check.css">
     <script src="https://kit.fontawesome.com/aabf80ac97.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
-    <?php if (!empty($_SESSION['update_submit'])) { ?>
+    <?php if (!empty($_SESSION['delete_button'])) { ?>
     <div class="delete-check">
       <div class="delete-complete">
         <i class="fa-regular fa-circle-check"></i>

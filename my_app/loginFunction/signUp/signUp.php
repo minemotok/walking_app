@@ -1,6 +1,6 @@
 <?php
 
-include_once("../connect/connect.php");
+include("../connect/connect.php");
 
 $error_message = array();
 $escape = array();
@@ -66,56 +66,55 @@ if (!empty($_POST)) {
 <!DOCTYPE html>
 <html lang="ja">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新規登録画面</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="signUp.css">
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>新規登録画面</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="signUp.css">
+</head>
 
-  <body>
+<body>
 
-    <div class="errorDisplay">
-      <?php
+  <div class="errorDisplay">
+    <?php
     foreach ($error_message as $error) {
       echo "<p>" . $error . '<br/>' . "</p>";
     }
     ?>
-    </div>
+  </div>
 
-    <form method="POST">
+  <form method="POST">
 
-      <div class="userInput">
+    <div class="userInput">
 
-        <div class="main">
-          <p id="mainTitle">新規アカウント登録</p>
-        </div>
-
-        <div class="userDisplay" id="username">
-          <label for="accountId" id="text">アカウント名</label>
-          <input type="text" class="form-control" id="text" name="account" placeholder="yamada tarou">
-        </div>
-
-        <div class="userDisplay">
-          <label for="mailId" id="text">メールアドレス</label>
-          <input type="email" class="form-control userDisplay" id="mailId" name="mailAddress"
-            placeholder="name@example.com">
-        </div>
-
-        <div class="userDisplay">
-          <label for="passwordId" id="text">パスワード</label>
-          <input type="password" class="form-control userDisplay" id="passwordId" name="password"
-            placeholder="Password">
-        </div>
-
-        <div class="submit">
-          <input type="submit" name="signUpButton" class="btn btn-primary" value="新規登録">
-        </div>
-
+      <div class="main">
+        <p id="mainTitle">新規アカウント登録</p>
       </div>
-    </form>
 
-  </body>
+      <div class="userDisplay" id="username">
+        <label for="accountId" id="text">アカウント名</label>
+        <input type="text" class="form-control" id="text" name="account" placeholder="yamada tarou">
+      </div>
+
+      <div class="userDisplay">
+        <label for="mailId" id="text">メールアドレス</label>
+        <input type="email" class="form-control userDisplay" id="mailId" name="mailAddress" placeholder="name@example.com">
+      </div>
+
+      <div class="userDisplay">
+        <label for="passwordId" id="text">パスワード</label>
+        <input type="password" class="form-control userDisplay" id="passwordId" name="password" placeholder="Password">
+      </div>
+
+      <div class="submit">
+        <input type="submit" name="signUpButton" class="btn btn-primary" value="新規登録">
+      </div>
+
+    </div>
+  </form>
+
+</body>
+
+</html>

@@ -3,38 +3,40 @@ include_once('../../loginFunction/connect/connect.php');
 session_start();
 $err_message = array();
 
-if (isset($_POST['update_submit'])) {
-  $_POST['account'] = htmlspecialchars($_POST['account'], ENT_QUOTES, 'UTF-8');
-  $_POST['mailaddress'] = htmlspecialchars($_POST['mailaddress'], ENT_QUOTES, 'UTF-8');
-
-  // 1. ユーザーデータの更新機能
-  if (!empty($_POST['account']) && !empty($_POST['mailaddress'])) {
-    $stmt = $pdo->prepare("UPDATE users SET username=:username, email=:email WHERE id=:id");
-    $stmt->bindValue(':username', $_POST['account'], PDO::PARAM_STR);
-    $stmt->bindValue(':email', $_POST['mailaddress'], PDO::PARAM_STR);
-    $stmt->bindValue(':id', $_POST['user_id'], PDO::PARAM_INT);
-    $stmt->execute();
-
-    $_SESSION['update_submit'] = $_POST['update_submit'];
-
-    // 2. 更新した後、更新されたかされていないかチェック画面に遷移する
-    $host = $_SERVER['HTTP_HOST'];
-    $dir = dirname($_SERVER['PHP_SELF'], 2);
-    header("Location: //$host$dir/update_admin/update_check.php");
-    exit;
-  }
-}
-
-if (isset($_SESSION['user_update_account'])) {
+// GET送信で値が来ていなかったら処理しない
+if (!empty($_GET['user_id'])) {
   // 1. データベースのusersテーブルからレコードを取得してくる
-  $stmt = $pdo->prepare("SELECT * FROM users WHERE username=:username");
-  $stmt->bindValue(':username', $_SESSION['user_update_account'], PDO::PARAM_STR);
+  $stmt = $pdo->prepare("SELECT * FROM users WHERE id=:id");
+  $stmt->bindValue(':id', $_GET['user_id'], PDO::PARAM_STR);
   $stmt->execute();
   $update_recode = $stmt->fetch(PDO::FETCH_ASSOC);
 
   //2. sqlを実行した時に不正な値が入力された場合
   if ($update_recode === false) {
     $err_message[] = "ユーザー情報を検索できませんでした" . '<br>' . "もう一度アカウント名を入力してください";
+  }
+}
+
+if (isset($_POST['update_submit'])) {
+  // 1. ユーザーデータの更新機能
+  if (isset($_POST['account']) !== false) {
+    // 入力チェック
+    if (empty($_POST['account'])) {
+      $err_message[] = 'ユーザー名を入力してください';
+    } else if (strlen($_POST['account']) > 50) {
+      $err_message[] = 'ユーザー名は50文字以内にしてください';
+    } else {
+      $_POST['account'] = htmlspecialchars($_POST['account'], ENT_QUOTES, 'UTF-8');
+    }
+    if (empty($err_message)) {
+      $stmt = $pdo->prepare("UPDATE users SET username=:username WHERE id=:id");
+      $stmt->bindValue(':id', $_POST['user_id'], PDO::PARAM_INT);
+      $stmt->bindValue(':username', $_POST['account'], PDO::PARAM_STR);
+      $stmt->execute();
+
+      $_SESSION['update_submit'] = $_POST['update_submit'];
+      $_SESSION['user_id'] = $_POST['user_id'];
+    }
   }
 }
 
@@ -54,7 +56,7 @@ if (isset($_SESSION['user_update_account'])) {
 </head>
 
 <body>
-  <form method="POST">
+  <form action="./update_check.php" method="POST">
     <?php if (!empty($err_message)) {
       foreach ($err_message as $error) {
         echo '<div class="error-message"><i class="fa-solid fa-triangle-exclamation"></i><p class="account-error">' . $error . '</p></div>' . '<br>';
@@ -85,16 +87,6 @@ if (isset($_SESSION['user_update_account'])) {
                                                                       } else {
                                                                         echo null;
                                                                       } ?>">
-      </div>
-
-      <div class="userDisplay">
-        <label for="mailaddress" id="text">メールアドレス</label>
-        <input type="text" class="form-control userDisplay" name="mailaddress" value="<?php if ($update_recode !== false) {
-                                                                                        echo $update_recode['email'];
-                                                                                      } else {
-                                                                                        echo null;
-                                                                                      }
-                                                                                      ?>">
       </div>
 
       <div class="submit">
