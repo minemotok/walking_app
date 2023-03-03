@@ -1,16 +1,3 @@
-<?php
-include_once("../../loginFunction/connect/connect.php");
-session_start();
-
-if (isset($_POST['delete']) !== false) {
-  $delete_stmt = $pdo->prepare("DELETE FROM users WHERE id=:id");
-  $delete_stmt->bindValue(":id", $_GET['user_id'], PDO::PARAM_INT);
-  $delete_stmt->execute();
-  $_SESSION['user_id'] = $_POST['account'];
-  $_SESSION['delete_button'] = $_POST['delete'];
-}
-
-?>
 <!DOCTYPE html>
 <html lang="ja">
 
