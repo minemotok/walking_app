@@ -1,40 +1,8 @@
 <?php
-include_once("../../loginFunction/connect/connect.php");
 session_start();
-$error_message = array();
-// 1.入力チェック
-if (isset($_POST)) {
-  if (isset($_POST['signUpButton'])) {
-    if (empty($_POST['account'])) {
-      $error_message[] = 'ユーザー名が入力されていません';
-    } else if (strlen($_POST['account']) > 50) {
-      $error_message[] = 'ユーザー名は50文字以内にしてください';
-    } else {
-      $_POST['account'] = htmlspecialchars($_POST['account'], ENT_QUOTES, 'UTF-8');
-    }
-  }
 
-  // 2.新規ユーザー登録
-  $duplication_error = array();
-  if (empty($error_message)) {
-    // 新規ユーザーのアカウントが重複していないかをチェックする
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE username=?");
-    $stmt->bindParam(1, $_POST['account']);
-    $stmt->execute();
-    $data = count($stmt->fetchAll(PDO::FETCH_COLUMN));
-    if ($data !== 0) {
-      $duplication_error['duplication'] = 'そのアカウント名はすでに登録されています';
-    } else {
-      $stmt = $pdo->prepare("INSERT INTO users(username) VALUE(:username)");
-      $stmt->bindParam(':username', $_POST['account']);
-      $stmt->execute();
-    }
-  }
-}
-
-
-$message_sign_app = "ユーザー名・" . $_POST['account'] . "を追加しました";
-$message_sign_app_error = "ユーザー名・" . $_POST['account'] . "を正常に追加できませんでした" . '<br>' . "もう一度お確かめください";
+$message_sign_app = "ユーザー名・" . $_SESSION['account'] . "を追加しました";
+$message_sign_app_error = "ユーザー名・" . $_SESSION['account'] . "を正常に追加できませんでした" . '<br>' . "もう一度お確かめください";
 
 ?>
 
@@ -53,7 +21,7 @@ $message_sign_app_error = "ユーザー名・" . $_POST['account'] . "を正常�
   </head>
 
   <body>
-    <?php if (!empty($_POST['signUpButton'])) { ?>
+    <?php if (!empty($_SESSION['account'])) { ?>
     <div class="delete-check">
       <div class="delete-complete">
         <i class="fa-regular fa-circle-check"></i>

@@ -1,8 +1,15 @@
 <?php
+include_once('../../loginFunction/connect/connect.php');
 session_start();
+if (isset($_POST['delete']) && !empty($_POST['delete'])) {
+  $delete_stmt = $pdo->prepare("DELETE FROM users WHERE id=:id");
+  $delete_stmt->bindValue(":id", $_POST['account'], PDO::PARAM_INT);
+  $delete_stmt->execute();
+  $_SESSION['account'] = $_POST['account'];
+}
 
-$message_update = "ユーザーID・" . $_SESSION['user_id'] . "のユーザー情報を更新しました";
-$message_update_error = "ユーザーID・" . $_SESSION['user_id'] . "のユーザー情報を正常に更新できませんでした" . '<br>' . "もう一度お確かめください";
+$message_update = "ユーザーID・" . $_POST['account'] . "のユーザー情報を削除しました";
+$message_update_error = "ユーザーID・" . $_POST['account'] . "のユーザー情報を正常に削除できませんでした" . '<br>' . "もう一度お確かめください";
 
 ?>
 
@@ -21,7 +28,7 @@ $message_update_error = "ユーザーID・" . $_SESSION['user_id'] . "のユー�
   </head>
 
   <body>
-    <?php if (!empty($_SESSION['delete_button'])) { ?>
+    <?php if (!empty($_SESSION['account'])) { ?>
     <div class="delete-check">
       <div class="delete-complete">
         <i class="fa-regular fa-circle-check"></i>

@@ -1,5 +1,4 @@
 <?php
-
 include("../connect/connect.php");
 
 $error_message = array();
