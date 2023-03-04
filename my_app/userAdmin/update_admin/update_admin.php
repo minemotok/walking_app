@@ -30,12 +30,10 @@ if (isset($_POST['update_submit'])) {
     }
     if (empty($err_message)) {
       $stmt = $pdo->prepare("UPDATE users SET username=:username WHERE id=:id");
-      $stmt->bindValue(':id', $_POST['user_id'], PDO::PARAM_INT);
-      $stmt->bindValue(':username', $_POST['account'], PDO::PARAM_STR);
+      $stmt->bindValue(":id", $_POST['user_id'], PDO::PARAM_INT);
+      $stmt->bindValue(":username", $_POST['account'], PDO::PARAM_STR);
       $stmt->execute();
-
-      $_SESSION['update_submit'] = $_POST['update_submit'];
-      $_SESSION['user_id'] = $_POST['user_id'];
+      $_SESSION['account'] = $_POST['account'];
     }
   }
 }

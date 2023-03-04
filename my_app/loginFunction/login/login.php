@@ -40,8 +40,6 @@ if (!empty($_POST)) {
       $error_message[] = 'アカウントが登録されていません';
     }
   }
-} else {
-  // 1.セッション情報がある（ログインしている）状態であればメイン画面にリダイレクト
 }
 
 ?>
@@ -58,21 +56,25 @@ if (!empty($_POST)) {
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="./login.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/aabf80ac97.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
-
-    <div class="errorDisplay">
-      <?php
-    if (!empty($error) || !empty($error_message)) {
-      foreach ($error as $error) {
-        echo "<p>" . $error . "<br/>" . "</p>";
+    <?php if (!empty($error) || !empty($error_message)) : ?>
+    <div class="error_message">
+      <div id="yellow">
+        <i id="mark" class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+        <span>もう一度入力してください</span>
+      </div>
+      <?php foreach ($error as $err) {
+        echo "<span>" . $err . "</span>" . "<br>";
       }
       foreach ($error_message as $error) {
-        echo "<p>" . $error . "<br/>" . "</p>";
+        echo "<span>" . $error . "</span>" . "<br>";
       }
-    }
-    ?>
+      ?>
+    </div>
+    <?php endif; ?>
     </div>
 
     <form method="POST">
