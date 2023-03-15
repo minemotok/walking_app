@@ -1,0 +1,54 @@
+body {
+  width: 100%;
+  height: 100vh;
+}
+.side {
+  background-color: rgba(241, 66, 22, 0.861);
+  width: 155px;
+  margin: 0;
+}
+.side-content {
+  height: 100%;
+}
+.main {
+  height: 100%;
+  margin-left: 10px;
+}
+
+/* サイドバーの項目のスタイル */
+.sidebar ul {
+  padding-left: 0;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgb(141, 41, 41);
+}
+.sidebar ul li {
+  display: block;
+  list-style: none;
+  padding-top: 50px;
+  border-bottom: 1px solid rgb(235, 233, 233);
+  border-top: 1px solid rgb(141, 41, 41);
+  transition: 0.5s;
+}
+.sidebar ul li:hover {
+  margin-left: 30px;
+  cursor: pointer;
+}
+.sidebar ul li i {
+  font-size: 24px;
+  margin-right: 10px;
+  color: rgb(53, 53, 53);
+}
+.sidebar ul li a {
+  display: block;
+  text-decoration: none;
+  font-weight: bold;
+  width: 100%;
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  color: rgb(245, 243, 243);
+}
+
+/* グラフのサイズ感 */
+#myChart {
+  height: 60vh;
+}

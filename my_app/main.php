@@ -34,18 +34,24 @@ if (!empty($_POST)) {
   <link href="./jquery/nav.css" rel="stylesheet">
   <script src="https://cdn.geolonia.com/community-geocoder.js"></script>
   <script src="./jquery/jquery-3.6.3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/6.0.0/bootbox.min.js" integrity="sha512-oVbWSv2O4y1UzvExJMHaHcaib4wsBMS5tEP3/YkMP6GmkwRJAa79Jwsv+Y/w7w2Vb/98/Xhvck10LyJweB8Jsw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://kit.fontawesome.com/aabf80ac97.js" crossorigin="anonymous"></script>
 </head>
 
-<body>
-  <div class="displayTitle">
-    <p>アプリの名前（仮）</p>
+<body id="main">
+  <div id="title" class="displayTitle">
+    <p>N散歩マップ</p>
+    <p>~毎日の健康のために~</p>
   </div>
 
   <div class="container app_contant">
     <div class="row overview">
       <div class="col">
-        <p id="inputCheck">経由したい地点のマップをクリックすると詳細が表示されます</p>
+        <p id="inputCheck">検索バーより目的地を検索するとルートが表示されます</p>
       </div>
     </div>
 
@@ -60,7 +66,8 @@ if (!empty($_POST)) {
           <ul class="nav_menu_ul">
             <li class="nav_menu_li"><a href="#" id="touristText">周辺の観光地を検索</a></li>
             <li class="nav_menu_li"><a href="#">路面電車利用検索</a></li>
-            <li class="nav_menu_li"><a href="#">長崎の最新情報</a></li>
+            <li class="nav_menu_li"><a href="#" id="walkingRoute">散歩ルート設定</a></li>
+            <li class="nav_menu_li"><a href="./week_data/home/home.php">一日に歩いた距離</a></li>
             <li class="nav_menu_li"><a href="./loginFunction/logout/logout.php">ログアウト</a></li>
           </ul>
         </nav>
@@ -71,7 +78,7 @@ if (!empty($_POST)) {
           <option selected>経由したい地点を選択してください</option>
           <option value="huisTenBosch">ハウステンボス</option>
           <option value="mountInasa">稲佐山</option>
-          <option value="shirakimine plateau">白木峰高原</option>
+          <option value="bakkadai park">百花台公園</option>
           <option value="glover garden">グラバー園</option>
           <option value="nagasaki new chinatown">長崎新中華街</option>
           <option value="peace park">平和公園</option>
@@ -84,7 +91,7 @@ if (!empty($_POST)) {
           <option value="nagasaki prefectual museum of art">長崎県美術館</option>
           <option value="sasebo gobangai">させぼ五番街</option>
           <option value="nagasaki mizubenomori park">長崎水辺の森公園</option>
-          <option value="glass beach">ガラスの砂浜</option>
+          <option value="oura cathedral">大浦天主堂</option>
           <option value="arcus sasebo">アルカス佐世保</option>
           <option value="mirai on library">ミライon図書館</option>
           <option value="unzen jigoku">雲仙地獄</option>
@@ -118,10 +125,6 @@ if (!empty($_POST)) {
     </div>
 
     <div class="row final">
-      <div class="col">
-        <a href="#">一日に歩いた距離</a>
-      </div>
-
       <div class="col final">
         <a href="./reviews.php">レビュー記入欄</a>
       </div>
@@ -134,7 +137,7 @@ if (!empty($_POST)) {
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=<?php echo $_ENV['API_KEY'] ?>&callback=initMap&libraries=places">
   </script>
   <script src="./mainMap/googleMap.js"></script>
-  <script src="./jquery/navmenu.js"></script>
+  <script src="./jquery/nav.js"></script>
 </body>
 
 </html>

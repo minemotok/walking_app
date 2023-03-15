@@ -1,0 +1,49 @@
+.container {
+  font-family: 'Poppins', sans-serif;
+}
+h3 a {
+  text-decoration: none;
+}
+table tr th {
+  height: 30px;
+  text-align: center;
+}
+table tr td {
+  height: 80px;
+}
+table tr .today {
+  background-color: rgb(248, 193, 26);
+}
+table tr th:nth-of-type(1), table tr td:nth-of-type(1) {
+  color: rgb(255, 12, 12);
+}
+table tr th:nth-of-type(7), table tr td:nth-of-type(7) {
+  color: rgb(19, 19, 255);
+}
+
+.month {
+  color: rgb(14, 14, 253);
+}
+.month {
+  cursor: pointer;
+  color: rgb(37, 113, 252);
+}
+
+/* ツールチップを表示スタイル */
+.tooltip {
+  width: 130px;
+  padding: 10px;
+  font-size: 10px;
+  margin: -30px 0 0;
+  background-color: #666;
+  color: #fff;
+}
+.tooltip:before {
+  height: 0;
+  width: 0;
+  border: solid transparent;
+  border-color: rgba(102, 102, 102, 0);
+  border-right-color: #5e5e5e;
+  border-width: 8px;
+  margin-top: -8px;
+}
