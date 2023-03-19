@@ -185,9 +185,13 @@ function initMap() {
   });
 }
 
+// 散歩距離を設定するための変数
+let distance = new Array();
+let duration = new Array();
+let distance_obj = new Object();
+let duration_obj = new Object();
 // ルート検索ボタン取得
 const rootBtn = document.getElementById('btn');
-
 // ルート検索をクリックしたときの処理
 rootBtn.addEventListener('click', () => {
   // 入力された値（経由地点）
@@ -267,6 +271,20 @@ rootBtn.addEventListener('click', () => {
             });
               }
             });
+            let legs = results.routes[0].legs;
+            for (let i = 0; i < legs.length; i++) {
+              distance[i] = Math.round(legs[i].distance.value / 100) / 10;
+              duration[i] = legs[i].duration.value;
+            }
+            distance_obj = {
+              'waypoint': distance[0],
+              'destination': distance[1]
+            }
+
+            duration_obj = {
+              'waypoint': duration[0],
+              'destination': duration[1]
+            }
           }
         });
       }
@@ -277,10 +295,6 @@ rootBtn.addEventListener('click', () => {
         let currentPosition = currentPos.getCenter();
         currentPos = new google.maps.LatLng(currentPosition);
         const to = document.getElementById('to').value;
-        
-        const directionsService = new google.maps.DirectionsService();
-        const directionsDisplay = new google.maps.DirectionsRenderer();
-        
         let request = {
           origin: currentPos,
           destination: to,
@@ -289,17 +303,110 @@ rootBtn.addEventListener('click', () => {
           avoidHighways: true,
           avoidTolls: true,
           unitSystem: google.maps.UnitSystem.METRIC
-          }
+        }        
+        // ルートサービスオブジェクト
+        const directionsService = new google.maps.DirectionsService();
         directionsService.route(request, function (results, status) {
           if (status == 'OK') {
-            directionsDisplay.setMap(map);
-            directionsDisplay.setDirections(results);
+            new google.maps.DirectionsRenderer({
+              map: map,
+              directions: results,
+              suppressMarkers: true
+            });
+            let placeName = results.geocoded_waypoints[1].place_id;
+            let geocoder = new google.maps.Geocoder();
+            geocoder.geocode({
+              'placeId': placeName,
+              'region': 'ja'
+            }, function (response, status) {
+              if (status == 'OK') {
+                const goalImage = new google.maps.Marker({
+                  position: response[0].geometry.location,
+                  map: map,
+                  icon: {
+                    url: '/walking_app/my_app/mainMap/597160.jpg',
+                    scaledSize: new google.maps.Size(35, 40)
+                  }
+                });
+                let legs = results.routes[0].legs;
+                console.log(legs);
+            for (let i = 0; i < legs.length; i++) {
+              distance[i] = Math.round(legs[i].distance.value / 100) / 10;
+              duration[i] = legs[i].duration.value;
+            }
+              distance_obj = {
+              'waypoint': 0,
+              'destination': distance[0]
+            }
+
+                duration_obj = {
+              'waypoint': 0,
+              'destination': duration[0]
+            }
+              }
+            });
           }
         });
       }
       rootRenderer();
     }
   });
+// 散歩ルートの距離を設定するためのダイアログ
+const xhr = new XMLHttpRequest();
+const form = new FormData();
+const date = new Date();
+// サーバー側(php)にデータを送信
+function post() {
+  xhr.open('POST', 'http://localhost:8000/walking_app/my_app/week_data/home/data_api.php', true);
+  // データベースに追加する日と曜日を追加
+  let year = date.getFullYear(); // 現在の年
+  let month = date.getMonth() + 1; // 現在の月
+  let day = date.getDate(); // 現在の日
+  let walking_date = `${year}` + '-' + `${month}` + '-' + `${day}`;
+  let week = date.getDay(); // 現在の曜日の1~6までの数値を取得
+  const weekItems = ['日', '月', '火', '水', '木', '金', '土'];
+  let walking_week = weekItems[week] + '曜日';
+  form.append('distance_waypoint', distance_obj['waypoint']);
+  form.append('distance_destination', distance_obj['destination']);
+  form.append('duration_waypoint', duration_obj['waypoint']);
+  form.append('duration_destination', duration_obj['destination']);
+  form.append('walking_date', walking_date);
+  form.append('walking_week', walking_week);
+  xhr.send(form);
+}
+function alertConfirm(text) {
+  const alert = document.createElement('div');
+      alert.setAttribute('class', 'alert alert-warning alert-dismissible fade show');
+      alert.setAttribute('role', 'alert');
+      alert.textContent = text;
+      const button = document.createElement('button');
+      button.setAttribute('type', 'button');
+      button.setAttribute('class', 'btn-close');
+      button.setAttribute('data-bs-dismiss', 'alert');
+      button.setAttribute('aria-label', 'Close');
+      alert.appendChild(button);
+      const body = document.getElementById('main');
+      body.prepend(alert);
+}
+// サーバーからデータが帰ってきたとき
+xhr.onload = function (e) {
+  if (xhr.readyState === 4) {
+    if (xhr.status !== 200) {
+      alertConfirm('正常に通信できませんでした');
+    } else {
+      alertConfirm('正常に通信を行い、登録完了しました');
+    }
+  }
+}
+
+document.getElementById('walkingRoute').addEventListener('click', function() {
+      bootbox.confirm("このルートを散歩しますか？", function(result) {
+        if (result) {
+          post();
+        } else {
+          }
+      })
+    });
 
 // 現在地周辺の観光スポットや飲食店を見つける
 let count = 0;

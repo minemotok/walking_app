@@ -48,7 +48,10 @@ body {
   color: rgb(245, 243, 243);
 }
 
-/* グラフのサイズ感 */
-#myChart {
-  height: 60vh;
+/* グラフの日付スタイル */
+.date-time {
+  font-size: 24px;
+  margin-right: 20px;
+  font-family: 'Poppins', sans-serif;
+  color: rgb(39, 100, 254);
 }
