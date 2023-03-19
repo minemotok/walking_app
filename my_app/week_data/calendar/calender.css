@@ -28,22 +28,11 @@ table tr th:nth-of-type(7), table tr td:nth-of-type(7) {
   cursor: pointer;
   color: rgb(37, 113, 252);
 }
-
 /* ツールチップを表示スタイル */
 .tooltip {
-  width: 130px;
-  padding: 10px;
-  font-size: 10px;
-  margin: -30px 0 0;
-  background-color: #666;
-  color: #fff;
-}
-.tooltip:before {
-  height: 0;
-  width: 0;
-  border: solid transparent;
-  border-color: rgba(102, 102, 102, 0);
-  border-right-color: #5e5e5e;
-  border-width: 8px;
-  margin-top: -8px;
+  position: absolute;
+  padding: 12px;
+  border: 1px solid #aaa;
+  background: #acacac;
+  z-index: 1;
 }
