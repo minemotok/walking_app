@@ -252,8 +252,29 @@ td {
   font-size: 14px;
 }
 
-#website {
+.website {
   font-size: 13px;
   font-weight: 900;
   padding: 0;
+}
+
+/* フッターのスタイル */
+.footer {
+  border-radius: 50%;
+  width: 50%;
+  background-color: rgba(244, 242, 242, 0.1);
+  text-align: center;
+  margin: 15px auto;
+}
+.footer:hover {
+  background-color: rgb(166, 252, 208);
+
+}
+.footer a {
+  text-decoration: none;
+  color: rgb(38, 38, 38);
+  font-size: 20px;
+}
+.footer a:hover {
+  color: rgb(21, 123, 233);
 }

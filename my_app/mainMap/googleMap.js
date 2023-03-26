@@ -404,7 +404,7 @@ document.getElementById('walkingRoute').addEventListener('click', function() {
         if (result) {
           post();
         } else {
-          }
+        }
       })
     });
 
@@ -505,11 +505,9 @@ document.getElementById('touristText').addEventListener('click', function (e) {
       span.setAttribute('class', 'in');
       headline.appendChild(span);
       wrap.appendChild(headline);
-
       const placeSearch = document.getElementById('placeSearch');
       placeSearch.appendChild(wrap);
 
-    
     // レスポンスで返された値から情報を表示する
     function createInfo(touristInfo, touristAbstractInfo, markerCount, distanceInfo) {
       const createInfo = document.createElement('div');
@@ -567,7 +565,11 @@ document.getElementById('touristText').addEventListener('click', function (e) {
       tdPhoneNumber.textContent = touristAbstractInfo.formatted_phone_number;
       // Webページセル
       const tdWebsite = document.createElement('td');
-      tdWebsite.innerHTML = `<a id="website" href="${touristAbstractInfo.website}">${touristAbstractInfo.website}</a>`;
+      if ('website' in touristAbstractInfo) {
+        tdWebsite.innerHTML = `<a class="website" href="${touristAbstractInfo.website}">${touristAbstractInfo.website}</a>`;
+      } else {
+        tdWebsite.innerHTML = '<span>該当なし</span>';
+      }
       // テーブルに住所のカラムを作成
       trAddress.appendChild(thAddress);
       trAddress.appendChild(tdAddress);

@@ -130,11 +130,15 @@ if (!empty($_POST)) {
 
       <div class="row final">
         <div class="col final">
-          <a href="./reviews.php">レビュー記入欄</a>
+          <div class="footer">
+            <a href="./reviews.php">レビュー記入欄</a>
+          </div>
         </div>
 
         <div class="col final">
-          <a href="./footer/inquiry/inquiry.php">お問い合わせ</a>
+          <div class="footer">
+            <a href="./footer/inquiry/inquiry.php">お問い合わせ</a>
+          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,9 @@
+
+[2023-03-20T03:10:35.927536+01:00] name.WARNING: Foo [] []
+[2023-03-20T03:10:35.931526+01:00] name.ERROR: Bar [] []
+2023-03-20T03:21:11.244347+01:00 > WARNING > Foo [] []
+2023-03-20T03:21:11.245608+01:00 > ERROR > Bar [] []
+Y年m月d日 H:i:sY年m月d日 H:i:s2023年03月20日 03:26:11 > WARNING > Foo [] []
+2023年03月20日 03:26:11 > ERROR > Bar [] []
+2023年03月20日 04:03:36 > ERROR > Bar [] {"memory_usage":"2 MB"}
+2023年03月20日 23:19:27 > ERROR > Bar [] {"url":"/walking_app/monolog/log.php","ip":"::1","http_method":"GET","server":"localhost","referrer":null,"memory_usage":"8 MB"}
