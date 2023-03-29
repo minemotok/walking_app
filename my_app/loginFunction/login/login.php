@@ -1,17 +1,15 @@
 <?php
 include_once('../connect/connect.php');
-require_once('../error_check/error_check.php');
 
 session_start();
 
-if (!empty($_POST)) {
+if (isset($_POST) && !empty($_POST)) {
+  include_once('../error_check/error_check.php');
   // 1.入力チェック
   $error_check = new Errorcheck();
   // ユーザー名のチェック
-  $account_check = $error_check->input_error_check($_POST['account'], 'account', 'ユーザー名', 50);
 
   // パスワードのチェック
-  $password_check = $error_check->input_error_check($_POST['password'], 'password', 'パスワード', 100);
   $error = $error_check->error_message;
 
   // 2.アカウント情報がデータベースに保存されているか照合する
@@ -60,50 +58,58 @@ if (!empty($_POST)) {
   </head>
 
   <body>
-    <?php if (!empty($error) || !empty($error_message)) : ?>
+    <?php if (isset($error_message)) : ?>
     <div class="error_message">
       <div id="yellow">
         <i id="mark" class="fa fa-exclamation-triangle" aria-hidden="true"></i>
         <span>もう一度入力してください</span>
       </div>
+      <?php if (isset($error) && !empty($error)) : ?>
       <?php foreach ($error as $err) {
-        echo "<span>" . $err . "</span>" . "<br>";
-      }
-      foreach ($error_message as $error) {
-        echo "<span>" . $error . "</span>" . "<br>";
-      }
-      ?>
+          echo "<span>" . $err . "</span>" . "<br>";
+        } ?>
+      <?php endif; ?>
+      <?php if (isset($error_message) && !empty($error_message)) : ?>
+      <?php foreach ($error_message as $message) {
+          echo "<span>" . $message . "</span>" . "<br>";
+        }
+        ?>
+      <?php endif; ?>
     </div>
     <?php endif; ?>
-    </div>
 
-    <form method="POST">
+    <div class="container mt-4">
+      <form method="POST">
+        <div class="userInput">
+          <div class="col loginTitle">
+          </div>
 
-      <div class="userInput">
-
-        <div class="main">
-          <p id="mainTitle">ログイン画面</p>
+          <div class="userDisplay row" id="username">
+          </div>
         </div>
 
-        <div class="userDisplay" id="username">
-          <label for="accountId" id="text">アカウント名</label>
-          <input type="text" class="form-control" id="text" name="account" placeholder="yamada tarou">
-        </div>
-
-        <div class="userDisplay">
-          <label for="passwordId" id="text">パスワード</label>
-          <input type="password" class="form-control userDisplay" id="passwordId" name="password"
+        <div class="userDisplay row">
+          <div class="col center-block">
+            <label for="passwordId" id="text">パスワード</label>
             placeholder="Password">
+          </div>
         </div>
 
-        <div class="submit">
-          <input type="submit" name="sign_up_Button" class="btn btn-primary" value="ログイン">
+        <div class="submit row">
+          <div class="col text-center">
+            <input type="submit" name="sign_up_Button" class="btn btn-primary" value="ログイン">
+          </div>
         </div>
 
-        <a href="../signUp/signUp.php" class="link_abbsolute">
-          <span>新規登録画面</span>
-        </a>
-      </div>
+        <div class="row">
+          <div class="col text-center">
+            <a href="../signUp/signUp.php" class="link_abbsolute">
+              <span>新規登録画面</span>
+            </a>
+          </div>
+        </div>
+    </div>
     </form>
+    </div>
 
   </body>

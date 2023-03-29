@@ -69,10 +69,24 @@ if (!empty($_POST)) {
           </span>
           <nav class="nav">
             <ul class="nav_menu_ul">
-              <li class="nav_menu_li"><a href="#" id="touristText">周辺の観光地を検索</a></li>
-              <li class="nav_menu_li"><a href="#" id="walkingRoute">散歩ルート設定</a></li>
-              <li class="nav_menu_li"><a href="./week_data/home/home.php">一日に歩いた距離</a></li>
-              <li class="nav_menu_li"><a href="./loginFunction/logout/logout.php">ログアウト</a></li>
+              <div class="list-group" id="list-tab" role="tablist">
+                <li class="nav_menu_li">
+                  <a href="#" class="list-group-item list-group-item-action list-state"
+                    id="list-home-list">周辺の観光地を検索</a>
+                </li>
+                <li class="nav_menu_li">
+                  <a href="#" class="list-group-item list-group-item-action list-state"
+                    id="list-profile-list">散歩ルート設定</a>
+                </li>
+                <li class="nav_menu_li">
+                  <a href="week_data/home/home.php" class="list-group-item list-group-item-action list-state"
+                    id="list-messages-list">一日に歩いた距離</a>
+                </li>
+                <li class="nav_menu_li">
+                  <a href="loginFunction/logout/logout.php" class="list-group-item list-group-item-action list-state"
+                    id="list-settings-list">ログアウト</a>
+                </li>
+              </div>
             </ul>
           </nav>
         </div>

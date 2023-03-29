@@ -399,7 +399,7 @@ xhr.onload = function (e) {
   }
 }
 
-document.getElementById('walkingRoute').addEventListener('click', function() {
+document.getElementById('list-profile-list').addEventListener('click', function() {
       bootbox.confirm("このルートを散歩しますか？", function(result) {
         if (result) {
           post();
@@ -410,7 +410,7 @@ document.getElementById('walkingRoute').addEventListener('click', function() {
 
 // 現在地周辺の観光スポットや飲食店を見つける
 let count = 0;
-document.getElementById('touristText').addEventListener('click', function (e) {
+document.getElementById('list-home-list').addEventListener('click', function (e) {
   e.preventDefault();
   count++;
   if(count === 1) {
