@@ -145,11 +145,3 @@ h1 {
   position: relative;
   bottom: 5px;
 }
-
-/* エラー内容のスタイルを整える */
-.error {
-  color: rgb(249, 37, 37);
-}
-#note {
-  background-color: rgb(250, 209, 23);
-}

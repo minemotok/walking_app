@@ -1,3 +1,34 @@
+<?php
+include_once('../../loginFunction/connect/connect.php');
+session_start();
+// 送信ボタンを押されたときの処理
+$error_message = array();
+if (!empty($_POST['reviews_submit'])) {
+  // レビュー記入欄の入力内容チェック
+  if (empty($_POST['review_text'])) {
+    $error_message[] = 'レビュー記入欄に記入し、送信してください';
+  } else if (strlen($_POST['review_text']) > 250) {
+    $error_message[] = 'レビューは250文字以内で送信してください';
+  } else {
+    $_SESSION['review_content'] = htmlspecialchars($_POST['review_text'], ENT_QUOTES, 'UTF-8');
+  }
+  // 送信ボタンがクリックされたときにエラーが出なかったらデータベースに保存する
+  if (empty($error_message)) {
+    date_default_timezone_set('Asia/Tokyo');
+    $date_time = date('Y-m-d H:i:s');
+    $stmt = $pdo->prepare("INSERT INTO reviews(star_number, review_content, date_time, user_id, review_id)
+                          VALUE(:star_number, :review_content, :date_time, 
+                          (SELECT id FROM users WHERE username=:username),
+                          (SELECT id FROM review_items WHERE title=:title))");
+    $stmt->bindValue(":star_number", $_SESSION['star_number'], PDO::PARAM_STR);
+    $stmt->bindValue(":review_content", $_SESSION['review_content'], PDO::PARAM_STR);
+    $stmt->bindValue(":date_time", $date_time, PDO::PARAM_STR);
+    $stmt->bindValue(":username", $_SESSION['account'], PDO::PARAM_STR);
+    $stmt->bindValue(":title", $_POST['title'], PDO::PARAM_STR);
+    $stmt->execute();
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -11,6 +42,16 @@
 </head>
 
 <body>
+  <?php
+  if (!empty($error_message)) {
+    foreach ($error_message as $error) {
+      echo "<div class='error-message'>
+            <i id='note' class='fa-solid fa-triangle-exclamation'></i>
+            <p class='error'>{$error}</p>
+            </div>";
+    }
+  }
+  ?>
   <div class="container">
     <div class="row complete_title">
       <div class="col title_text">

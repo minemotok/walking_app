@@ -158,9 +158,9 @@ $('#send_pie').on('click', function () {
         for (let i = 0; i < 7; i++) {
           date[`time${i}`] = Math.round(data[`time${i}`] * 10) / 10;
         }
-        setPieChart(date);
-        let start = date.date0.replace(/-/g, "/");
-        let end = date.date6.replace(/-/g, "/");
+        setPieChart(data);
+        let start = data.date0.replace(/-/g, "/");
+        let end = data.date6.replace(/-/g, "/");
         $('#pie_title').text(start + "～" + end);
       })
       .fail(function () {

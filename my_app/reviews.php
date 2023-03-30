@@ -128,13 +128,24 @@ if (empty($_SESSION['account'])) {
                   <div>
                     <span class="number_rating">
                       <input name="star_number" id="star-of-number" type="hidden">
-                      <img src="./reviews/raty/star-off.png" data-id="star-1" class="star" id="star-function-1">
-                      <img src="./reviews/raty/star-off.png" data-id="star-2" class="star" id="star-function-2">
-                      <img src="./reviews/raty/star-off.png" data-id="star-3" class="star" id="star-function-3">
-                      <img src="./reviews/raty/star-off.png" data-id="star-4" class="star" id="star-function-4">
-                      <img src="./reviews/raty/star-off.png" data-id="star-5" class="star" id="star-function-5">
+                      <img src="./reviews/raty/star-off.png" data-name="<?= $data_decode['results'][0]['name']; ?>"
+                        data-id="star-1-<?= $data_decode['results'][0]['name']; ?>" class="star"
+                        id="star-function-1-<?= $data_decode['results'][0]['name']; ?>">
+                      <img src="./reviews/raty/star-off.png" data-name="<?= $data_decode['results'][0]['name']; ?>"
+                        data-id="star-2-<?= $data_decode['results'][0]['name']; ?>" class="star"
+                        id="star-function-2-<?= $data_decode['results'][0]['name']; ?>">
+                      <img src="./reviews/raty/star-off.png" data-name="<?= $data_decode['results'][0]['name']; ?>"
+                        data-id="star-3-<?= $data_decode['results'][0]['name']; ?>" class="star"
+                        id="star-function-3-<?= $data_decode['results'][0]['name']; ?>">
+                      <img src="./reviews/raty/star-off.png" data-name="<?= $data_decode['results'][0]['name']; ?>"
+                        data-id="star-4-<?= $data_decode['results'][0]['name']; ?>" class="star"
+                        id="star-function-4-<?= $data_decode['results'][0]['name']; ?>">
+                      <img src="./reviews/raty/star-off.png" data-name="<?= $data_decode['results'][0]['name']; ?>"
+                        data-id="star-5-<?= $data_decode['results'][0]['name']; ?>" class="star"
+                        id="star-function-5-<?= $data_decode['results'][0]['name']; ?>">
                     </span>
-                    <button type="button" id="reset" class="btn btn-primary btn-sm">リセット</button>
+                    <button type="button" data-name="<?= $data_decode['results'][0]['name']; ?>"
+                      class="btn btn-primary btn-sm reset">リセット</button>
                   </div>
                 </td>
               </tr>
@@ -150,7 +161,8 @@ if (empty($_SESSION['account'])) {
               <tr>
                 <th>書き込み</th>
                 <td class="write"><input name="send" type="submit" class="btn btn-primary btn-sm" id="send-button"
-                    value="送信"></td>
+                    value="送信">
+                </td>
               </tr>
             </table>
           </div>

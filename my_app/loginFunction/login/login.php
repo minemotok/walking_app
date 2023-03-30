@@ -82,34 +82,39 @@ if (isset($_POST) && !empty($_POST)) {
       <form method="POST">
         <div class="userInput">
           <div class="col loginTitle">
+            <p id="mainTitle">ログイン画面</p>
           </div>
 
           <div class="userDisplay row" id="username">
+            <div class="col center-block">
+              <label for="accountId" id="text">アカウント名</label>
+              <input type="text" class="form-control" id="text" name="account" placeholder="yamada tarou">
+            </div>
           </div>
-        </div>
 
-        <div class="userDisplay row">
-          <div class="col center-block">
-            <label for="passwordId" id="text">パスワード</label>
-            placeholder="Password">
+          <div class="userDisplay row">
+            <div class="col center-block">
+              <label for="passwordId" id="text">パスワード</label>
+              <input type="password" class="form-control userDisplay" id="passwordId" name="password"
+                placeholder="Password">
+            </div>
           </div>
-        </div>
 
-        <div class="submit row">
-          <div class="col text-center">
-            <input type="submit" name="sign_up_Button" class="btn btn-primary" value="ログイン">
+          <div class="submit row">
+            <div class="col text-center">
+              <input type="submit" name="sign_up_Button" class="btn btn-primary" value="ログイン">
+            </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col text-center">
-            <a href="../signUp/signUp.php" class="link_abbsolute">
-              <span>新規登録画面</span>
-            </a>
+          <div class="row">
+            <div class="col text-center">
+              <a href="../signUp/signUp.php" class="link_abbsolute">
+                <span>新規登録画面</span>
+              </a>
+            </div>
           </div>
         </div>
-    </div>
-    </form>
+      </form>
     </div>
 
   </body>
